@@ -6,7 +6,7 @@ def _get_configs(path_to_file='config.yml'):
     from yaml import load, Loader
     with open(path_to_file, 'rt') as f:
         data = load(f, Loader=Loader)
-    return data['feature_params'], data['lk_params'], data['diff_limit']
+    return data['feature_params'], data['lk_params'], data['diff_limit'], data['brightness_limit']
 
 
 def _start_video():
@@ -53,7 +53,7 @@ def reset_points(frame):
 
 if __name__ == '__main__':
     cap = _start_video()
-    feature_params, lk_params, diff_limit = _get_configs()
+    feature_params, lk_params, diff_limit, brightness_limit = _get_configs()
     color = np.random.randint(0, 255, (feature_params['maxCorners'], 3))
     font = cv2.FONT_HERSHEY_SIMPLEX
     ret, old_frame = _get_frame(cap)
@@ -74,7 +74,8 @@ if __name__ == '__main__':
             frame_yuv = cv2.cvtColor(frame, cv2.COLOR_BGR2YUV)
             movement_detected, good_old, good_new = calculate_optical_flow(old_gray, frame_gray,
                                                                            p0, diff_limit, **lk_params)
-            if movement_detected and np.abs(np.average(frame_yuv[..., 0]) - np.average(old_yuv[..., 0])) < 20.:
+            if movement_detected and \
+                    np.abs(np.average(frame_yuv[..., 0]) - np.average(old_yuv[..., 0])) < brightness_limit:
                 cv2.putText(frame, str(datetime.datetime.now()), (10, 25), font, 1, (0, 0, 255), 2, cv2.LINE_AA)
                 cv2.imshow('Feedback', frame)
                 result.write(frame)

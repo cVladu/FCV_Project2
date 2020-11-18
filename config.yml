@@ -8,3 +8,4 @@ lk_params:
   maxLevel: 2
   criteria: !!python/tuple [3, 10, 0.03]
 diff_limit: 1.0
+brightness_limit: 20.0
