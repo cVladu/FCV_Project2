@@ -5,7 +5,7 @@ feature_params:
   blockSize: 7
 lk_params:
   winSize: !!python/tuple [15, 15]
-  maxLevel: 2
+  maxLevel: 0
   criteria: !!python/tuple [3, 10, 0.03]
 diff_limit: 1.0
 brightness_limit: 20.0

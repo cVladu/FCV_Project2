@@ -1,7 +1,7 @@
 # FCV_Project2
 
 ## Algorithm used
-The used algorithm is based on the non dense optical flow by PyrLK.  
+The used algorithm is based on the non dense optical flow by Lucas-Kanade method.  
 The algorithm selects up to 100 points to track and tracks those points. 
 The algorithm considers a movement detected if any point moved with more than a threshold (configurable)
 
